@@ -1,0 +1,132 @@
+openapi: 3.1.0
+info:
+  title: Тестовое задание для WorkMate
+  description: Апи для управлением бекграунд джобами
+  version: 1.0.0
+
+servers:
+  - description: local
+    url: localhost:8080
+
+paths:
+  /v1/task/create:
+    post:
+      operationId: "CreateTask"
+      summary: "Создание бекграунд задачи"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTaskRequest'
+      responses:
+        200:
+          description: Задача создана
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateTaskResponse'
+      tags:
+        - Task
+  /v1/task/delete:
+    post:
+      operationId: "DeleteTask"
+      summary: "Удаление бекграунд задачи"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteTaskRequest'
+      responses:
+        200:
+          description: Задача удалена
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteTaskResponse'
+      tags:
+        - Task
+  /v1/task/get-task-status:
+    post:
+      operationId: "get-task-status"
+      summary: "Получение статуса задачи"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetTaskStatusRequest'
+      responses:
+        200:
+          description: Статус
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetTaskStatusResponse'
+      tags:
+        - Task
+
+
+
+components:
+  schemas:
+    CreateTaskRequest:
+      type: object
+      required:
+        - type
+      properties:
+        type:
+          type: string
+
+
+    CreateTaskResponse:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+
+    DeleteTaskRequest:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+
+
+    DeleteTaskResponse:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+
+    GetTaskStatusRequest:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+
+
+    GetTaskStatusResponse:
+      type: object
+      required:
+        - id
+        - status
+        - createdAt
+        - duration
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+        createdAt:
+          type: string
+        duration:
+          type: string
